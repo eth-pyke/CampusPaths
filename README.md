@@ -4,7 +4,7 @@ Campus Paths is an Android application that allows a user to find the shortest g
 
 # Description
 
-./AndroidStudioProjects: Folder containing the main android file for the application.
+./AndroidStudioProjects: Folder containing the main android file for the application.\n
 ./src: Folder containing all the required files for running the application.
 
 # Usage
