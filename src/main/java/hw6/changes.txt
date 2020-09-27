@@ -1,0 +1,31 @@
+CSE 331 Homework 6.  Answers to Written questions.
+Edit this file to supply your answers.
+
+Name:  Ethan Pyke
+
+Briefly describe any changes made to your Graph ADT from HW5 and why 
+those changes were made below.  (See the HW6 assignment for details.)
+
+  -	I added a getNumOfEdges() method to my Graph class to make it easy
+  	for the client to see how many edges are currently in the graph.  In
+  	order for this to work, I created a new private variable that increases
+  	each time addEdge() is called.
+  - In my GraphNode class, I had to change my equals method so that it
+  	properly overrode the equals method.  This way all methods are able to use
+  	it properly.
+  -	Added an overridden hashCode() method to complement the equals method() so that
+    the nodes and edges can be properly stored in a HashSet or HashMap.
+  - Added a getNode() method to my graph class so that I could access specific nodes
+  	by just using the data in the node.
+  - Made node and edge implement comparable so that they can be inserted into TreeSets
+  	and TreeMaps.  This way they can be alphabetically sorted.
+  - Changed Graph and GraphNode so that the children of each node is stored into a HashMap
+  	in the actual graph class.  By changing this, the GraphNode no longer holds its children
+  	but only its data.
+  - Changed the parameters of addEdge in graph to take in two strings rather than two graphNodes
+  	so this way a new graphNode does not have to be created each time it is called.
+  - Had to update the listChildren method in the SpecificationTests because it erased nodes when
+    there were multiple children with different edge datas.
+  - Got rid of getChildren in edge, addChild, and the list of its children.  A getChildren method
+  	was then added to the Graph class because that is what holds all the children of each node in
+  	the graph.

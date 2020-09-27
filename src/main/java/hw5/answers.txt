@@ -1,0 +1,213 @@
+CSE 331 Homework 5.  Answers to Written questions.
+Edit this file to supply your answers.
+
+Name:  Ethan Pyke
+
+Problem 1. (Written exercises)
+
+(a)
+	1.) Abstraction Function:
+		IntQueue1, q1, represents a queue of integers that is contained in 'entries'.
+		
+		Rep Invariant:
+		entries != null &&
+		For all i such that (0 <= i <= length(q1)), entries(i) != null &&
+		Last result enqueued is last result dequeued.
+		
+	2.) Abstraction Function:
+		IntQueue2, q2, represents a queue of integers that is contained in 'entries'.
+		
+		Rep Invariant:
+		entries != null &&
+		size >= 0 &&
+		For all i such that (front <= i < front + size), entries[i] != null.
+
+(b)
+	- C & F are equivalent because each has a size of 3 and contains front[1, 2, 3]
+	- A, D & G are equivalent because each has a size of 2 and contains front[1, 2] 
+	- B & H are equivalent because each has a size of 3 and contains front[2, 3, 4] 
+	- E is by itself because none of the other snapshots had a size of 4 that contained 
+	  front[1, 2, 3, 4]
+
+(c)
+	1.) public int solveEquations(int x, int y, int z)
+			I believe that this method would not expose the representation because I am assuming
+			this method just solves an experiment with the given 3 integers and in no way would
+			alter a class.  This also assumes that none of the passed-in variables are null.
+	
+	2.) public String[] decode(boolean slowly)
+			I believe that this method could possibly expose the representation because I am
+			assuming that by decode, this method will edit an object and return it in a String
+			array.  Any time an object is mutated it is subjected to possibly exposing the
+			representation.
+	
+	3.) private Date myBirthday()
+			I believe that this method would not expose the representation because it just returns
+			the date of a birthday and would not alter anything.  This assumes that the birthday
+			is already stored as a local variable or is easily calculated without altering anything
+	
+	4.) public String toString()
+			I believe that this method would not expose the representation because this just
+			returns a string of the object.
+	
+	5.) public Iterator<Integer> elements()
+			I believe that this method could possibly expose the representation because the object
+			might be not able to iterated through.
+	
+	6.) public Deck(List<Card> cards)
+			I believe that this constructor could possibly expose the representation because if
+			the list is null or any of the Card's in cards are null, the representation could be
+			exposed if it called for the list or any of the elements in the list to not be null.
+
+
+Problem 2.  (Graph interface/operations)
+Graph Class - This class was included so that the overall graph could be kept track
+			  of with all of its components.  This makes it easier for the client to
+			  access all the nodes and edges.
+	Graph(String name)
+		I included this method in the Graph class in case the client wants to create
+		an empty graph. 
+
+	Graph(String name, GraphNode start)
+		I included this method in the Graph class in case the client wants to create
+		a new Graph object starting with a given GraphNode.q
+	
+	getName()
+		I included this method to return the name of the graph.
+	
+	addNode(String data)
+		This was included so the client could add a new node to the graph by just providing
+		the data to create a new node.  If the user wants to connect it with another node, they
+		must also call the addEdge method.
+		
+	addEdge(GraphNode from, GraphNode to, String data)
+		This method allows the client to create a new edge between two GraphNodes that are
+		already in the graph.  I included this method so that multiple edges could be added
+		between the same nodes.
+
+	contains(GraphNode node)
+		Allows the client to test and see if the Graph contains a given node.  This makes
+		it easier to use the addNode method because the addNode method requires that the
+		oldNode is a part of the current graph.
+	
+	size()
+		Allows the client to see how many nodes are in the graph.
+		
+	isEmpty()
+		Allows the client to see if the graph is empty.
+	
+	listNodes()
+		This allows the client to obtain a copy of a list of all the nodes in the graph.  This
+		makes it so that user can not alter the list of nodes and change its data while also
+		allowing them to get a list of all the nodes in order to compare with other things if
+		needed.
+	
+	toString()
+		This helps in the case of testing to make sure the graph includes all the correct elements.
+	
+GraphNode Class - I included this class so that each node in the Graph was its own object
+				  and is easier to distinguish from the overall Graph.
+	GraphNode(String d)
+		Allows the client to create a node with given data that is not connected to any
+		other node. This is useful when the user wants to make a graph of just one node. 	
+	
+	addChild(GraphNode child, String edgeData)
+		Adds a child node to this.  Makes it easier for the client to keep track of which children
+		its children and what pathways it has.
+		
+	getData() 
+		Returns the String data of the node.  Allows the client the possibility of accessing this
+		whenever needed.
+	
+	getChildren()
+		Returns a list of all the children the node has.  This can be useful when trying determine
+		possible paths in the Graph class.
+	
+	equals()
+		Allows the client to check if one node is equal to another by comparing its data. 
+	
+	toString()
+		Allows the client to see a string representation of the graph node with all of its
+		edges pointing to its children.
+	
+GraphEdge Class - I included this class because each edge has the possibility of having its own 
+				  data so I thought it best to make it its own object.
+	GraphEdge(GraphNode f, GraphNode t, String d)
+		This allows the client to make a new graph edge from f to t with its own data d.  This is
+		the only constructor because an edge has to have a beginning and end.
+		
+	getData() 
+		This returns the data of the string.  Included in case the client wants to know what the
+		edge represents.
+	
+	getOrigin()
+		Returns the GraphNode the edge starts at.  This can be used to help the toString() method 
+		to determine the direction of the edge. 
+	
+	getDestination() 
+		Returns the GraphNode the edge ends at.  This can be used to help the toString() method to
+		determine the direction of the edge.
+	
+	toString()
+		Returns a String representation of the edge so the client is able to see the direction the
+		edge is going.	
+
+Problem 3.  (Testing strategy)
+	For my testing strategy, for the implementation tests I mainly focused on creating tests to
+	make sure that each individual method worked properly.  For example, for each of the
+	constructors I wrote tests for cases where null was passed in to check for that. Additionally,
+	for Graph and GraphNode, I wrote many tests for when duplicate nodes are entered into a graph
+	in order to test for the special case of where a node is trying to be connected with itself
+	or if the same node is trying to be added to a graph twice. 
+	
+	Additionally, another testing strategy that I chose to employ in many of my tests was to look
+	at cases that involved a loop and continuous paths. This was done with the goal of reducing
+	the number of possibilities for an infinite loops.  By doing this it also looks at special
+	cases that could be very detrimental to the program.
+	
+	Updates to Program:
+	- 	I added an addEdge method to the Graph class because I had forgetten to add this before
+	  	completing part 1. Adding this method allows for two nodes to have multiple edges between
+	  	the two and allows for adding nodes by themselves without having to be connected to
+	  	another node.  In order to test for this, I had to add tests in the GraphTest.java file
+	  	that tests for when it tries to create an edge between two nodes that are not in the graph
+	  	and just that it is creating edges correctly.
+	-	Because I added the addEdge method, I had to change the parameters for the addNode method.
+		In order to change this, I changed the parameters to only include the data of the Node
+		being added to the graph.  What this does is make it so that the client does not have to
+		access the GraphNode class and can do everything from the Graph class.  Additionally,
+		changing the parameters allows for nodes to be not connected to anyone in the graph.
+	- 	I also added a listNodes method that allows the client to access a copy of a list of all
+		the nodes in a graph.  This allows the client to see all the contents of the graph and
+		potentially use it to compare to other graphs.  In addition to adding this, I had to add
+		test cases to make sure that the list was formatted correctly.
+	-	Another update I made was I updated the script test files because I formatted the expected
+		files incorrectly and added some tests that would not work.  Additionally, I added a few
+		more tests in the ImplementationTest; specifically in GraphTest to further test the addEdge
+		method and the regular Constructor.
+
+
+Problem 4.  (Representation)
+	For my graph, I am representing my graph as an adjacency list where each node is associated
+	with a list of its outgoing edges.  With this representation, the Graph is its own object with
+	each of its nodes being its own objects with a list of each of its edges.  This list allows the
+	node to be traced to each of its children.  I chose this representation because it makes it
+	for the client and graph to access each node, edge, and its respective data that each hold.
+	Additionally, this representation seemed more intuitive each to work with and also for the
+	client to use.  
+	
+	Of the other two options for representing the graph, the method of representing the graph as a
+	collection of edges could be useful because it reduces the need for creating an additional
+	ADT for each node.  Instead, the data for each node could simply be stored as either end of
+	the edge.  I did not choose this method of representation because it made more sense to me to
+	have the nodes and edges represented separately so that they can each have their own commands
+	that makes it easier to test and use. 
+	
+	Additionally, for the option that involves representing it as an adjacency matrix
+	that explicitly represents, for every pair <A, B> of nodes, what edges there are from A to B
+	could be useful because it allows for quicker calculations of a pathway between two nodes.
+	However, I chose not to implement this representation because I believed that having to store
+	the data values separately was inefficient and unnecessary. While having the pairs of nodes
+	stored in an adjacent matrix could be helpful, having to access a separate data storage unit
+	seems inconvenient for both the client and program.
+
